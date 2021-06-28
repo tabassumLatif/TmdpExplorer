@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tabi.tmdbexplorer">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".TmdbApplication"
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMDBExplorer">
-        <activity android:name=".ui.MovieSearchActivity">
+        <activity android:name=".ui.search.MovieSearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,6 +3,7 @@ package com.tabi.tmdbexplorer.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import com.tabi.tmdbexplorer.repository.FakeTmdbRepository
+import com.tabi.tmdbexplorer.ui.search.MovieSearchViewModel
 import com.tabi.tmdbexplorer.util.Status
 import com.tabi.tmdbexplorer.utils.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi

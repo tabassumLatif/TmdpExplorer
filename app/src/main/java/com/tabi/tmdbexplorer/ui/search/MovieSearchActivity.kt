@@ -1,4 +1,4 @@
-package com.tabi.tmdbexplorer.ui
+package com.tabi.tmdbexplorer.ui.search
 
 import android.app.SearchManager
 import android.content.Context
@@ -7,20 +7,27 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.tabi.tmdbexplorer.R
+import com.tabi.tmdbexplorer.databinding.ActivityMovieSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieSearchActivity : AppCompatActivity() {
 
+    @Inject
     lateinit var viewModel: MovieSearchViewModel
+    lateinit var binding: ActivityMovieSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
-        setContentView(R.layout.activity_movie_search)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search)
+        binding.viewModel = viewModel
+        viewModel.searchMovies("007")
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
