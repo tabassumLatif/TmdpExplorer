@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.tabi.tmdbexplorer.ui.search.adapter.MovieViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_main"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="10dp"
@@ -16,19 +18,20 @@
         app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivMoviePoster"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
+                android:src="@drawable/ic_no_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvMovie"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -36,25 +39,42 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:text="TextView"
+                android:text="@{viewModel.title}"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvYear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:text="TextView"
+                android:text="@{viewModel.year}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toStartOf="@+id/tvMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tvMovie" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:ellipsize="end"
+                android:maxLines="6"
+                android:text="@{viewModel.overview}"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvYear"
+                app:layout_constraintTop_toBottomOf="@+id/tvYear" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
