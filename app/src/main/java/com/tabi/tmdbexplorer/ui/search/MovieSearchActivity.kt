@@ -19,6 +19,7 @@ class MovieSearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModel: MovieSearchViewModel
+
     @Inject
     lateinit var adapter: MoviesAdapter
     lateinit var binding: ActivityMovieSearchBinding
@@ -61,4 +62,5 @@ class MovieSearchActivity : AppCompatActivity() {
             true
         } else super.onOptionsItemSelected(item)
     }
+
 }

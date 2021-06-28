@@ -1,6 +1,9 @@
 package com.tabi.tmdbexplorer.util
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -30,6 +33,18 @@ class BindingUtil {
                 .placeholder(R.drawable.ic_no_image)
                 .error(R.drawable.ic_no_image)
             Glide.with(imageView.context).load(IMAGE_BASE_URL + url).apply(options).into(imageView)
+        }
+
+        @JvmStatic
+        @BindingAdapter("isSameYear")
+        fun changeTextColor(textView: TextView, isSameYear: Boolean) {
+            if (isSameYear) {
+                textView.apply {
+                    this.typeface = Typeface.DEFAULT_BOLD
+                    this.setTextColor(Color.RED)
+                }
+
+            }
         }
     }
 }

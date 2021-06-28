@@ -15,7 +15,8 @@
         android:theme="@style/Theme.TMDBExplorer"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.detail.MovieDetailActivity"></activity>
-        <activity android:name=".ui.search.MovieSearchActivity">
+        <activity android:name=".ui.search.MovieSearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,6 +1,7 @@
 package com.tabi.tmdbexplorer.repository
 
 import com.tabi.tmdbexplorer.data.remote.api.TmdbAPI
+import com.tabi.tmdbexplorer.data.remote.models.MovieDetail
 import com.tabi.tmdbexplorer.data.remote.models.MoviesResponse
 import com.tabi.tmdbexplorer.util.Resource
 import javax.inject.Inject
@@ -16,23 +17,31 @@ class TmdbRepository @Inject constructor(
                     return@let Resource.success(it)
                 } ?: Resource.error("An unknown error occured", null)
             } else {
-                when (response.body()?.statusCode) {
-                    300 -> {
-                        Resource.error("An unknown error occured", null)
-                    }
-                    400 -> {
-                        Resource.error("An unknown error occured", null)
-                    }
-                    500 -> {
-                        Resource.error("An unknown error occured", null)
-                    }
-                    else -> {
-                        Resource.error("An unknown error occured", null)
-                    }
-                }
+                handleError(response.body()?.statusCode)
             }
         } catch (e: Exception) {
             Resource.error("Couldn't reach the server. Check your internet connection", null)
         }
+    }
+
+    private fun handleError(statusCode: Int?): Resource<MoviesResponse> {
+       return when (statusCode) {
+            300 -> {
+                Resource.error("An unknown error occured", null)
+            }
+            400 -> {
+                Resource.error("An unknown error occured", null)
+            }
+            500 -> {
+                Resource.error("An unknown error occured", null)
+            }
+            else -> {
+                Resource.error("An unknown error occured", null)
+            }
+        }
+    }
+
+    override suspend fun getMovieDetail(movieId: String): Resource<MovieDetail> {
+        return Resource.error("Couldn't reach the server. Check your internet connection", null)
     }
 }

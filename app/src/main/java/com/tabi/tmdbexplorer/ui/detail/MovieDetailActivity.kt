@@ -7,6 +7,7 @@ import com.tabi.tmdbexplorer.R
 import com.tabi.tmdbexplorer.databinding.ActivityMovieDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMovieDetailBinding
