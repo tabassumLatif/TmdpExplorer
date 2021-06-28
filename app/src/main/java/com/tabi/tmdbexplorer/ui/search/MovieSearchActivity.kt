@@ -8,9 +8,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.tabi.tmdbexplorer.R
 import com.tabi.tmdbexplorer.databinding.ActivityMovieSearchBinding
+import com.tabi.tmdbexplorer.ui.search.adapter.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,13 +19,16 @@ class MovieSearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModel: MovieSearchViewModel
+    @Inject
+    lateinit var adapter: MoviesAdapter
     lateinit var binding: ActivityMovieSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        viewModel.searchMovies("007")
+        binding.rvMovies.adapter = adapter
     }
 
 
@@ -40,11 +43,12 @@ class MovieSearchActivity : AppCompatActivity() {
         )
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.searchMovies(query)
                 return false
             }
 
-            override fun onQueryTextChange(query: String?): Boolean {
+            override fun onQueryTextChange(query: String): Boolean {
                 return false
             }
         })

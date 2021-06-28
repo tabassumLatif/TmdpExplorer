@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TMDB Explorer</string>
+    <string name="no_result_found">No Movie Found</string>
 </resources>
