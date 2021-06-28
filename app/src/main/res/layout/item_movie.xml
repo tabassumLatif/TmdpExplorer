@@ -26,6 +26,7 @@
                 android:id="@+id/ivMoviePoster"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
+                loadImage="@{viewModel.posterPath}"
                 android:src="@drawable/ic_no_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
