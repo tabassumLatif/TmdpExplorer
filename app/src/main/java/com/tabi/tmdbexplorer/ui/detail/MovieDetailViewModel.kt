@@ -1,6 +1,5 @@
 package com.tabi.tmdbexplorer.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,8 +18,17 @@ constructor(private val repository: ITmdbRepository) : ViewModel() {
 
     private val _movieDetail = MutableLiveData<Event<Resource<MovieDetail>>>()
     private val moviesDetail: LiveData<Event<Resource<MovieDetail>>> = _movieDetail
-    lateinit var movie: Movie
 
+    var title: MutableLiveData<String> = MutableLiveData()
+    var releaseDate: MutableLiveData<String> = MutableLiveData()
+    var overview: MutableLiveData<String> = MutableLiveData()
+    var duration: MutableLiveData<String> = MutableLiveData()
+    var rating: MutableLiveData<String> = MutableLiveData()
+    var averageRating: MutableLiveData<Float> = MutableLiveData()
+    var revenue: MutableLiveData<String> = MutableLiveData()
+    var posterPath: MutableLiveData<String> = MutableLiveData("")
+
+    lateinit var movie: Movie
 
     fun getMovieDetail() {
 
@@ -31,17 +39,15 @@ constructor(private val repository: ITmdbRepository) : ViewModel() {
                 _movieDetail.value = Event(response)
                 when (moviesDetail.value?.getContentIfNotHandled()?.status) {
                     Status.SUCCESS -> {
-                        Log.d("tabi_detail", "getMovieDetail: " + response.data?.title)
-//                        moviesList.postValue(response.data?.results)
+                        duration.postValue("${response.data?.runtime ?: "0"} min")
+                        revenue.postValue("$${response.data?.revenue ?: "0"}")
+                        rating.postValue("${response.data?.voteCount?.toInt() ?: "0"} votes")
+                        averageRating.postValue(response.data?.voteAverage?.toFloat())
                     }
                     Status.ERROR -> {
-                        Log.d(
-                            "tabi_detail",
-                            "getMovieDetail: ERROR " + moviesDetail.value?.getContentIfNotHandled()?.message
-                        )
+
                     }
                     Status.LOADING -> {
-                        Log.d("tabi_detail", "getMovieDetail: LOADING")
                     }
                 }
 
@@ -49,4 +55,12 @@ constructor(private val repository: ITmdbRepository) : ViewModel() {
         }
     }
 
+    fun setMovieValues(movie: Movie) {
+        this.movie = movie
+        title.postValue(movie.title)
+        releaseDate.postValue(movie.releaseDate)
+        overview.postValue(movie.overview)
+        posterPath.postValue(movie.posterPath ?: "")
+
+    }
 }

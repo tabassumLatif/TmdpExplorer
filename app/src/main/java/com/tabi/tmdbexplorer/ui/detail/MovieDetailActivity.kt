@@ -22,7 +22,7 @@ class MovieDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         intent.let {
-            viewModel.movie = it.extras?.getSerializable("movie") as Movie
+            viewModel.setMovieValues(it.extras?.getSerializable("movie") as Movie)
         }
         viewModel.getMovieDetail()
     }

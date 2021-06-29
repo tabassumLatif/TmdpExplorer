@@ -28,11 +28,11 @@ class BindingUtil {
 
         @JvmStatic
         @BindingAdapter("loadImage")
-        fun loadImage(imageView: ImageView, url: String) {
+        fun loadImage(imageView: ImageView, imageUrl: String) {
             val options: RequestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_no_image)
                 .error(R.drawable.ic_no_image)
-            Glide.with(imageView.context).load(IMAGE_BASE_URL + url).apply(options).into(imageView)
+            Glide.with(imageView.context).load(IMAGE_BASE_URL + imageUrl?:"").apply(options).into(imageView)
         }
 
         @JvmStatic
