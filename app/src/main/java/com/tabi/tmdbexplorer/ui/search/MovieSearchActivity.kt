@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
@@ -83,6 +84,10 @@ class MovieSearchActivity : AppCompatActivity() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                if (query.isNullOrEmpty()) {
+                    Toast.makeText(this@MovieSearchActivity, "Search field is empty", Toast.LENGTH_SHORT).show()
+                    return false
+                }
                 viewModel.searchMovies(query)
                 return false
             }
