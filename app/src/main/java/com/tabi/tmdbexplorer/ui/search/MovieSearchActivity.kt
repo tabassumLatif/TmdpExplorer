@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -84,8 +85,13 @@ class MovieSearchActivity : AppCompatActivity() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                if (query.isNullOrEmpty()) {
-                    Toast.makeText(this@MovieSearchActivity, "Search field is empty", Toast.LENGTH_SHORT).show()
+                hideKeyboard()
+                if (query.isEmpty()) {
+                    Toast.makeText(
+                        this@MovieSearchActivity,
+                        "Search field is empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return false
                 }
                 viewModel.searchMovies(query)
@@ -104,6 +110,14 @@ class MovieSearchActivity : AppCompatActivity() {
         return if (id == R.id.action_search) {
             true
         } else super.onOptionsItemSelected(item)
+    }
+
+    fun hideKeyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
 }
