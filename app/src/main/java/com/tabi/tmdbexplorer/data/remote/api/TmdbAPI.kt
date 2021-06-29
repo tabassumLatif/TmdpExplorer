@@ -18,9 +18,9 @@ interface TmdbAPI {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
     ): Response<MoviesResponse>
 
-    @GET("movie/")
+    @GET("movie/{movieId}")
     suspend fun getMovieDetail(
-        @Path("url") url: String,
+        @Path("movieId") movieId: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
     ): Response<MovieDetail>
 }

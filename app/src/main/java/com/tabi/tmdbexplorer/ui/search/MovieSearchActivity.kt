@@ -2,6 +2,7 @@ package com.tabi.tmdbexplorer.ui.search
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.tabi.tmdbexplorer.R
 import com.tabi.tmdbexplorer.databinding.ActivityMovieSearchBinding
+import com.tabi.tmdbexplorer.ui.detail.MovieDetailActivity
 import com.tabi.tmdbexplorer.ui.search.adapter.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,6 +32,8 @@ class MovieSearchActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.rvMovies.adapter = adapter
+
+        startActivity(Intent(this, MovieDetailActivity::class.java))
     }
 
 

@@ -17,15 +17,31 @@ class TmdbRepository @Inject constructor(
                     return@let Resource.success(it)
                 } ?: Resource.error("An unknown error occured", null)
             } else {
-                handleError(response.body()?.statusCode)
+                handleError(response.code())
             }
         } catch (e: Exception) {
             Resource.error("Couldn't reach the server. Check your internet connection", null)
         }
     }
 
-    private fun handleError(statusCode: Int?): Resource<MoviesResponse> {
-       return when (statusCode) {
+
+    override suspend fun getMovieDetail(movieId: String): Resource<MovieDetail> {
+        return try {
+            val response = tmdbApi.getMovieDetail(movieId = movieId)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return@let Resource.success(it)
+                } ?: Resource.error("An unknown error occured", null)
+            } else {
+                handleError(response.code())
+            }
+        } catch (e: Exception) {
+            Resource.error("Couldn't reach the server. Check your internet connection", null)
+        }
+    }
+
+    private fun <T> handleError(statusCode: Int?): Resource<T> {
+        return when (statusCode) {
             300 -> {
                 Resource.error("An unknown error occured", null)
             }
@@ -39,9 +55,5 @@ class TmdbRepository @Inject constructor(
                 Resource.error("An unknown error occured", null)
             }
         }
-    }
-
-    override suspend fun getMovieDetail(movieId: String): Resource<MovieDetail> {
-        return Resource.error("Couldn't reach the server. Check your internet connection", null)
     }
 }
