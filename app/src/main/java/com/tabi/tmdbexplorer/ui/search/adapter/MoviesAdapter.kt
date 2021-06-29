@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MoviesAdapter @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     internal val movies: ArrayList<Movie> = ArrayList()
-    var onItemClick: ((Movie) -> Unit)? = null
+    var onItemClick: ((Movie, ItemMovieBinding) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, i: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -41,7 +41,7 @@ class MoviesAdapter @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.M
         fun onBind(position: Int) {
             viewModel = MovieViewModel(movies[position])
             viewModel.onItemClick = {
-                onItemClick?.invoke(movies[adapterPosition])
+                onItemClick?.invoke(movies[adapterPosition], binding)
             }
             binding.viewModel = viewModel
         }

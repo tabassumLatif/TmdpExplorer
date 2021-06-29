@@ -16,17 +16,19 @@
         tools:context=".ui.detail.MovieDetailActivity">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivMoviePoster"
             loadImage="@{viewModel.posterPath}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:transitionName="profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_no_image" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tvMovie"
+            android:transitionName="title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -39,7 +41,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/ivMoviePoster" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -47,10 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="4dp"
-            android:max="10"
-            android:rating="@{viewModel.averageRating}"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="@{viewModel.averageRating, default=6.6}"
+            app:layout_constraintStart_toStartOf="@+id/tvMovie"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovie" />
 
         <LinearLayout
 
@@ -68,7 +71,8 @@
                 android:id="@+id/tvDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.duration}" />
+                android:text="@{viewModel.duration}"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -92,7 +96,8 @@
                 android:id="@+id/tvRelease"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.releaseDate}" />
+                android:text="@{viewModel.releaseDate}"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -116,7 +121,8 @@
                 android:id="@+id/tvRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.rating}" />
+                android:text="@{viewModel.rating}"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView2"

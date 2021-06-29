@@ -14,6 +14,9 @@ class MovieViewModel(val movie: Movie) {
     var sameYear: MutableLiveData<Boolean> = MutableLiveData(isSameYear(year.value ?: ""))
 
     private fun getYear(date: String): String {
+        if (date.isNullOrEmpty()) {
+            return ""
+        }
         val dateFormatYyyyMMdd = SimpleDateFormat(
             "yyyy-MM-dd", Locale.ROOT
         )
@@ -23,14 +26,14 @@ class MovieViewModel(val movie: Movie) {
         return calendar.get(Calendar.YEAR).toString()
     }
 
-    private fun isSameYear(year: String): Boolean{
+    private fun isSameYear(year: String): Boolean {
         Calendar.getInstance().clear()
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
         return year == currentYear.toString()
     }
 
-    fun onClick(){
+    fun onClick() {
         onItemClick?.invoke()
     }
 }

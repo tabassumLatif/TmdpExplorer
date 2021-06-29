@@ -6,15 +6,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.databinding.DataBindingUtil
 import com.tabi.tmdbexplorer.R
+import com.tabi.tmdbexplorer.data.remote.models.Movie
 import com.tabi.tmdbexplorer.databinding.ActivityMovieSearchBinding
+import com.tabi.tmdbexplorer.databinding.ItemMovieBinding
 import com.tabi.tmdbexplorer.ui.detail.MovieDetailActivity
 import com.tabi.tmdbexplorer.ui.search.adapter.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MovieSearchActivity : AppCompatActivity() {
@@ -24,11 +30,14 @@ class MovieSearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var adapter: MoviesAdapter
-    private lateinit var binding: ActivityMovieSearchBinding
+    lateinit var binding: ActivityMovieSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition()
+        }
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupMovieRecyclerview()
@@ -36,10 +45,28 @@ class MovieSearchActivity : AppCompatActivity() {
 
     private fun setupMovieRecyclerview() {
         binding.rvMovies.adapter = adapter
-        adapter.onItemClick = {
-            startActivity(Intent(this, MovieDetailActivity::class.java).apply {
-                this.putExtra("movie", it)
-            })
+        adapter.onItemClick = { movie: Movie, itemMovieBinding: ItemMovieBinding ->
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                val detailIntent = Intent(this, MovieDetailActivity::class.java).apply {
+                    this.putExtra("movie", movie)
+                }
+
+                val p1 = Pair.create(
+                    itemMovieBinding.ivMoviePoster as View?,
+                    "profile"
+                )
+                val p2 = Pair.create(itemMovieBinding.tvMovie as View?, "title")
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2)
+
+                startActivity(detailIntent, options.toBundle())
+            } else {
+                startActivity(Intent(this, MovieDetailActivity::class.java).apply {
+                    this.putExtra("movie", movie)
+                })
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            startPostponedEnterTransition()
         }
     }
 

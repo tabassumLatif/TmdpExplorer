@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="10dp"
+        android:onClick="@{()->viewModel.onClick()}"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:onClick="@{()->viewModel.onClick()}">
+        app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -25,10 +25,11 @@
 
             <ImageView
                 android:id="@+id/ivMoviePoster"
+                loadImage="@{viewModel.posterPath}"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
-                loadImage="@{viewModel.posterPath}"
                 android:src="@drawable/ic_no_image"
+                android:transitionName="profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,12 +45,14 @@
                 android:text="@{viewModel.title}"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:transitionName="title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvYear"
+                isSameYear="@{viewModel.sameYear}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -57,7 +60,6 @@
                 android:layout_marginRight="10dp"
                 android:text="@{viewModel.year}"
                 android:textSize="14sp"
-                isSameYear="@{viewModel.sameYear}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvMovie"
                 app:layout_constraintTop_toBottomOf="@+id/tvMovie" />
