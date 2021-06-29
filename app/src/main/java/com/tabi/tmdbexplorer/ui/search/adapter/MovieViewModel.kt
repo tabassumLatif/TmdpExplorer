@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MovieViewModel(val movie: Movie) {
+    var onItemClick: (() -> Unit)? = null
     var title: MutableLiveData<String> = MutableLiveData(movie.title)
     var year: MutableLiveData<String> = MutableLiveData(getYear(movie.releaseDate))
     var overview: MutableLiveData<String> = MutableLiveData(movie.overview)
@@ -13,10 +14,10 @@ class MovieViewModel(val movie: Movie) {
     var sameYear: MutableLiveData<Boolean> = MutableLiveData(isSameYear(year.value ?: ""))
 
     private fun getYear(date: String): String {
-        val dateFormat_yyyyMMdd = SimpleDateFormat(
+        val dateFormatYyyyMMdd = SimpleDateFormat(
             "yyyy-MM-dd", Locale.ROOT
         )
-        val formattedDate = dateFormat_yyyyMMdd.parse(date)
+        val formattedDate = dateFormatYyyyMMdd.parse(date)
         val calendar = Calendar.getInstance()
         calendar.time = formattedDate!!
         return calendar.get(Calendar.YEAR).toString()
@@ -25,7 +26,11 @@ class MovieViewModel(val movie: Movie) {
     private fun isSameYear(year: String): Boolean{
         Calendar.getInstance().clear()
         val calendar = Calendar.getInstance()
-        var currentYear = calendar.get(Calendar.YEAR)
+        val currentYear = calendar.get(Calendar.YEAR)
         return year == currentYear.toString()
+    }
+
+    fun onClick(){
+        onItemClick?.invoke()
     }
 }

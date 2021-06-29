@@ -24,16 +24,23 @@ class MovieSearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var adapter: MoviesAdapter
-    lateinit var binding: ActivityMovieSearchBinding
+    private lateinit var binding: ActivityMovieSearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.rvMovies.adapter = adapter
+        setupMovieRecyclerview()
+    }
 
-        startActivity(Intent(this, MovieDetailActivity::class.java))
+    private fun setupMovieRecyclerview() {
+        binding.rvMovies.adapter = adapter
+        adapter.onItemClick = {
+            startActivity(Intent(this, MovieDetailActivity::class.java).apply {
+                this.putExtra("movie", it)
+            })
+        }
     }
 
 

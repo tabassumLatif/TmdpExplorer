@@ -1,6 +1,7 @@
 package com.tabi.tmdbexplorer.data.remote.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Movie(
@@ -18,4 +19,4 @@ data class Movie(
     @SerializedName("video") val video : Boolean,
     @SerializedName("vote_average") val voteAverage : Double,
     @SerializedName("vote_count") val voteCount : Int
-)
+) : Serializable

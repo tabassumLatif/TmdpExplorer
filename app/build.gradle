@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -42,6 +43,9 @@ android {
 
     buildFeatures {
         dataBinding = true
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 

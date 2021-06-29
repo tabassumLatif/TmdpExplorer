@@ -36,7 +36,7 @@ class TmdbRepository @Inject constructor(
                 handleError(response.code())
             }
         } catch (e: Exception) {
-            Resource.error("Couldn't reach the server. Check your internet connection", null)
+            Resource.error("Couldn't reach the server. Check your internet connection  $e", null)
         }
     }
 
