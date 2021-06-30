@@ -55,7 +55,7 @@ class MovieSearchActivity : AppCompatActivity() {
 
                 val p1 = Pair.create(
                     itemMovieBinding.ivMoviePoster as View?,
-                    "profile"
+                    "poster"
                 )
                 val p2 = Pair.create(itemMovieBinding.tvMovie as View?, "title")
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2)

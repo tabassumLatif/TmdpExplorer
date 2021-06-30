@@ -29,7 +29,7 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_no_image"
-                android:transitionName="profile"
+                android:transitionName="poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
