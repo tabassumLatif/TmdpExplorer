@@ -29,7 +29,7 @@ object AppModule {
     @Provides
     fun provideTmdbApi(): TmdbAPI {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
         val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

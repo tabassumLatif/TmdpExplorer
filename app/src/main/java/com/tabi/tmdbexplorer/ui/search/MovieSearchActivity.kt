@@ -47,7 +47,11 @@ class MovieSearchActivity : AppCompatActivity() {
 
     private fun setupMovieRecyclerview() {
         binding.rvMovies.adapter = adapter
-        adapter.onItemClick = { movie: Movie, itemMovieBinding: ItemMovieBinding ->
+        adapter.onItemClick = itemClickListener()
+    }
+
+    private fun itemClickListener(): (Movie, ItemMovieBinding) -> Unit {
+       return { movie: Movie, itemMovieBinding: ItemMovieBinding ->
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val detailIntent = Intent(this, MovieDetailActivity::class.java).apply {
                     this.putExtra("movie", movie)
@@ -66,9 +70,6 @@ class MovieSearchActivity : AppCompatActivity() {
                     this.putExtra("movie", movie)
                 })
             }
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            startPostponedEnterTransition()
         }
     }
 

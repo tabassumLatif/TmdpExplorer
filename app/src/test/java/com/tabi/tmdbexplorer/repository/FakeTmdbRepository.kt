@@ -2,6 +2,7 @@ package com.tabi.tmdbexplorer.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.tabi.tmdbexplorer.data.remote.models.Movie
+import com.tabi.tmdbexplorer.data.remote.models.MovieDetail
 import com.tabi.tmdbexplorer.data.remote.models.MoviesResponse
 import com.tabi.tmdbexplorer.util.Resource
 
@@ -26,6 +27,11 @@ class FakeTmdbRepository : ITmdbRepository {
             Resource.success(MoviesResponse(listOf(), 0, listOf(), 200, "", true, 1, 1))
         }
         refreshLiveData()
+    }
+
+    override suspend fun getMovieDetail(movieId: String): Resource<MovieDetail> {
+//        TODO("Not yet implemented")
+        return Resource.error("Network error", null)
     }
 
     private fun refreshLiveData() {

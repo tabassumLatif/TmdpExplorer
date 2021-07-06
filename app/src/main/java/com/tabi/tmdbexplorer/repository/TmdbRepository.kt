@@ -15,7 +15,7 @@ class TmdbRepository @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)
-                } ?: Resource.error("An unknown error occured", null)
+                } ?: Resource.error("An unknown error occurred", null)
             } else {
                 handleError(response.code())
             }
@@ -31,7 +31,7 @@ class TmdbRepository @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)
-                } ?: Resource.error("An unknown error occured", null)
+                } ?: Resource.error("An unknown error occurred", null)
             } else {
                 handleError(response.code())
             }
@@ -43,16 +43,16 @@ class TmdbRepository @Inject constructor(
     private fun <T> handleError(statusCode: Int?): Resource<T> {
         return when (statusCode) {
             300 -> {
-                Resource.error("An unknown error occured", null)
+                Resource.error("An unknown error occurred", null)
             }
             400 -> {
-                Resource.error("An unknown error occured", null)
+                Resource.error("An unknown error occurred", null)
             }
             500 -> {
-                Resource.error("An unknown error occured", null)
+                Resource.error("An unknown error occurred", null)
             }
             else -> {
-                Resource.error("An unknown error occured", null)
+                Resource.error("An unknown error occurred", null)
             }
         }
     }
