@@ -48,6 +48,9 @@ class MovieSearchActivity : AppCompatActivity() {
     private fun setupMovieRecyclerview() {
         binding.rvMovies.adapter = adapter
         adapter.onItemClick = itemClickListener()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            startPostponedEnterTransition()
+        }
     }
 
     private fun itemClickListener(): (Movie, ItemMovieBinding) -> Unit {
